@@ -1,0 +1,74 @@
+# =========================
+# Dependências
+# =========================
+node_modules/
+
+# =========================
+# Build / Output
+# =========================
+dist/
+build/
+out/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# =========================
+# Cache
+# =========================
+.cache/
+.turbo/
+.vite/
+.parcel-cache/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Editor
+# =========================
+.vscode/
+!.vscode/extensions.json
+.idea/
+
+# =========================
+# OCR / Image processing (IMPORTANTE no seu caso)
+# =========================
+pages/
+processed/
+temp/
+uploads/
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Se quiser manter imagens originais, remova essa linha:
+# *.png *.jpg etc (e ignore só pastas processadas)
+
+# =========================
+# Tesseract cache (quando aplicável)
+# =========================
+.tesseract-cache/
