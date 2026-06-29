@@ -1,16 +1,16 @@
-import OpenAI from "openai";
 import fs from "fs/promises";
-import Key from "../../config/connectOpenAi";
+import OpenAI from "openai";
+import Key from "../../config/config";
 
 export class VisionService {
   private client: OpenAI;
 
   constructor() {
     this.client = new OpenAI({
-      apiKey: Key.apiKey,
+      apiKey: Key.apiGPTKey,
     });
   }
- 
+
   async analyzePage(imagePath: string) {
     const base64 = await fs.readFile(imagePath, "base64");
 
@@ -34,7 +34,7 @@ Analise esta página de mangá:
             {
               type: "input_image",
               image_url: `data:image/png;base64,${base64}`,
-              detail: "auto"
+              detail: "auto",
             },
           ],
         },

@@ -1,20 +1,19 @@
+import cors from "cors";
 import express from "express";
+import fs from "fs";
 import multer from "multer";
 import path from "path";
-import fs from "fs";
-import dotenv from "dotenv";
-import cors from "cors";
-import ocrRouter from "./routes/ocr.route";
+import config from "./config/config";
 import ocrGoogleRouter from "./routes/ocr-google.route";
-import { PdfService } from "./services/open-ai/pdf.service";
-import { VisionService } from "./services/open-ai/vision.service";
-import { TtsService } from "./services/open-ai/tts.service";
+import ocrRouter from "./routes/ocr.route";
 import { TtsGoogleService } from "./services/google/tts-google.service";
+import { PdfService } from "./services/open-ai/pdf.service";
+import { TtsService } from "./services/open-ai/tts.service";
+import { VisionService } from "./services/open-ai/vision.service";
 
 const ttsService = new TtsService();
 const pdfService = new PdfService();
 
-dotenv.config();
 console.log("API KEY:", process.env.OPENAI_API_KEY);
 
 const app = express();
@@ -29,7 +28,7 @@ if (!fs.existsSync(pagesDir)) {
   fs.mkdirSync(pagesDir, { recursive: true });
 }
 
-app.use("/pages", express.static(path.join(pagesDir))); 
+app.use("/pages", express.static(path.join(pagesDir)));
 const uploadDir = path.join(__dirname, "uploads");
 
 if (!fs.existsSync(uploadDir)) {
@@ -159,15 +158,15 @@ app.post("/tts", async (req, res) => {
 app.post("/google/tts", async (req, res) => {
   try {
     const { text } = req.body;
-    
+
     // Supondo que você tenha um GoogleTtsService ou similar
     // Ajuste conforme o nome da sua classe/serviço
-    const audioUrls = await TtsGoogleService.synthesize(text)
+    const audioUrls = await TtsGoogleService.synthesize(text);
 
     return res.json({
       audioUrls,
     });
-  } catch (error: any) { 
+  } catch (error: any) {
     console.error("ERRO GOOGLE TTS:", error);
     return res.status(500).json({
       error: error?.message || "Erro ao gerar áudio com Google",
@@ -185,6 +184,6 @@ app.use("/audios", express.static(audioDir));
 
 const PORT = process.env.PORT || 3333;
 
-app.listen(PORT, () => {
+app.listen(config.PORT, () => {
   console.log(`🚀 Servidor iniciado em http://localhost:${PORT}`);
 });

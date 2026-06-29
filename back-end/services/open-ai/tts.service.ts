@@ -1,15 +1,14 @@
-import OpenAI from "openai";
 import fs from "fs/promises";
+import OpenAI from "openai";
 import path from "path";
-import Key from "../../config/connectOpenAi";
-
+import config from "../../config/config";
 
 export class TtsService {
   private client: OpenAI;
 
   constructor() {
     this.client = new OpenAI({
-      apiKey: Key.apiKey,
+      apiKey: config.apiGPTKey,
     });
   }
 

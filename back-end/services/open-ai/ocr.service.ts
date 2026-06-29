@@ -1,7 +1,7 @@
 import fs from "fs/promises";
-import path from "path";
 import OpenAI from "openai";
-import Key from "../../config/connectOpenAi";
+import path from "path";
+import config from "../../config/config";
 
 export type OcrMode = "ocr" | "vision";
 
@@ -10,7 +10,7 @@ export class OcrService {
 
   constructor() {
     this.client = new OpenAI({
-      apiKey: Key.apiKey,
+      apiKey: config.apiGPTKey,
     });
   }
 
